@@ -1,0 +1,41 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+// Initialize the express app
+const app = express();
+app.use(bodyParser.json());
+
+// Expense list database
+let expenseList = [];
+
+// API endpoint to add an expense item
+app.post('/expenses', (req, res) => {
+  const { item, price, quantity } = req.body;
+
+  // Validate input
+  if (!item || !price || !quantity) {
+    return res.status(400).json({ error: 'Incomplete data' });
+  }
+
+  // Create expense object
+  const newExpense = {
+    item,
+    price,
+    quantity,
+  };
+
+  // Add the expense to the list
+  expenseList.push(newExpense);
+
+  return res.status(201).json({ message: 'Expense added successfully' });
+});
+
+// API endpoint to get the expense list
+app.get('/expenses', (req, res) => {
+  return res.status(200).json(expenseList);
+});
+
+// Start the server
+app.listen(3000, () => {
+  console.log('Expense List server is running on port 3000');
+});

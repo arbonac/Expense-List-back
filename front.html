@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense List</title>
+  <style>
+    .list-header {
+      font-weight: bold;
+    }
+    .list-item {
+      margin-bottom: 0.5in;
+    }
+    .list-item input {
+      margin-right: 0.5in;
+    }
+    .list-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .list-table td {
+      border: 1px solid black;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Expense List</h1>
+  <form id="expense-form" onsubmit="addItem(); return false;">
+    <label for="name">Item:</label>
+    <input type="text" id="name" name="name">
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price">
+    <label for="quantity">Quantity:</label>
+    <input type="text" id="quantity" name="quantity">
+    <button type="submit">Add to List</button>
+  </form>
+
+  <h2>Items</h2>
+  <table class="list-table">
+    <thead>
+      <tr class="list-header">
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody id="items"></tbody>
+  </table>
+
+  <script>
+    function addItem() {
+      var name = document.getElementById('name').value;
+      var price = document.getElementById('price').value;
+      var quantity = document.getElementById('quantity').value;
+
+      var row = `<tr class="list-item">
+                  <td>${name}</td>
+                  <td>${price}</td>
+                  <td>${quantity}</td>
+                </tr>`;
+
+      var itemList = document.getElementById('items');
+      itemList.innerHTML += row;
+
+      document.getElementById('name').value = '';
+      document.getElementById('price').value = '';
+      document.getElementById('quantity').value = '';
+    }
+  </script>
+</body>
+</html>
